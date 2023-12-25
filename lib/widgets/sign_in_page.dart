@@ -1,10 +1,11 @@
+import 'package:final_proj/cubits/aut_states.dart';
+import 'package:final_proj/cubits/auth_cubit.dart';
+import 'package:final_proj/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:final_proj/aut_states.dart';
-import 'package:final_proj/auth_cubit.dart';
 
 
-import 'home_page.dart';
+
 
 class SignInPage extends StatelessWidget {
   final TextEditingController _emailController;

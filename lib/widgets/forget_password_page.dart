@@ -1,30 +1,26 @@
+import 'package:final_proj/cubits/aut_states.dart';
+import 'package:final_proj/cubits/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:final_proj/aut_states.dart';
-import 'package:final_proj/auth_cubit.dart';
 
 
-import 'home_page.dart';
-
-class SignUpPage extends StatelessWidget {
+class ForgetPasswordPage extends StatelessWidget {
   final TextEditingController _emailController;
-  final TextEditingController _passwordController;
 
-  const SignUpPage(this._emailController, this._passwordController, {super.key});
+  const ForgetPasswordPage(this._emailController, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccess) {
-          // Show a success message and navigate to the home page
+          // Show a success message
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Sign up successful'),
+              content: Text('Password reset email sent'),
               backgroundColor: Colors.green,
             ),
           );
-          Navigator.pushNamed(context, HomePage.id);
         } else if (state is AuthFailure) {
           // Show an error message
           ScaffoldMessenger.of(context).showSnackBar(
@@ -49,31 +45,17 @@ class SignUpPage extends StatelessWidget {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 10),
-                TextField(
-                  controller: _passwordController,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
-                  ),
-                  obscureText: true,
-                ),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: state is AuthLoading
                       ? null
                       : () {
-                          // Sign up the user with the email and password
-                          context.read<AuthCubit>().signUp(
-                                _emailController.text,
-                                _passwordController.text,
-                              );
-                  
+                          // Send a password reset email to the user
                           context
                               .read<AuthCubit>()
-                              .saveEmail(_emailController.text);
+                              .resetPassword(_emailController.text);
                         },
-                  child: const Text('Sign Up'),
+                  child: const Text('Send Email'),
                 ),
               ],
             ),

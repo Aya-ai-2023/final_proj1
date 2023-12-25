@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:final_proj/aut_states.dart';
+import 'package:final_proj/cubits/aut_states.dart';
 
 
 class AuthCubit extends Cubit<AuthState> {
-//  
+
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final SharedPreferences _sharedPreferences;
 
@@ -36,7 +36,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  // Sign out a user
+
   Future<void> signOut() async {
     try {
       emit(AuthLoading());
@@ -47,7 +47,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  // Send a password reset email to a user
+
   Future<void> resetPassword(String email) async {
     try {
       emit(AuthLoading());
